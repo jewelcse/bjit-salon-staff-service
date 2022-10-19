@@ -8,6 +8,7 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,17 +25,15 @@ public class StaffController {
     private static final Logger log = LoggerFactory.getLogger(StaffController.class);
     private final StaffService staffService;
     @PostMapping("/staffs") // only admin can create a new staff
-    public ResponseEntity<String> create(@RequestBody StaffCreateDto staffCreateDto){
+    public ResponseEntity<StaffResponseDto> create(@RequestBody StaffCreateDto staffCreateDto){
         log.info("Creating a new staff with user id: {}", staffCreateDto.getUserId());
-        staffService.createNewStaff(staffCreateDto);
-        return ResponseEntity.ok("Staff created success");
+        return new ResponseEntity<>(staffService.createNewStaff(staffCreateDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/staffs") // only staff and admin can update
-    public ResponseEntity<String> update(@RequestBody StaffUpdateDto staffUpdateDto){
+    public ResponseEntity<StaffResponseDto> update(@RequestBody StaffUpdateDto staffUpdateDto){
         log.info("Updating staff account details with user id: {}",staffUpdateDto.getUserId());
-        staffService.updateStaff(staffUpdateDto);
-        return ResponseEntity.ok("Staff updated success");
+        return ResponseEntity.ok( staffService.updateStaff(staffUpdateDto));
     }
 
     @GetMapping("/staffs/{id}") // only staff and admin can view

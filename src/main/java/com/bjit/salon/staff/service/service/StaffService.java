@@ -7,9 +7,9 @@ import com.bjit.salon.staff.service.dto.response.StaffResponseDto;
 import java.util.List;
 
 public interface StaffService {
-    void createNewStaff(StaffCreateDto staffCreateDto);
+    StaffResponseDto createNewStaff(StaffCreateDto staffCreateDto);
 
-    void updateStaff(StaffUpdateDto staffUpdateDto);
+    StaffResponseDto updateStaff(StaffUpdateDto staffUpdateDto);
 
     StaffResponseDto getStaff(long id);
 

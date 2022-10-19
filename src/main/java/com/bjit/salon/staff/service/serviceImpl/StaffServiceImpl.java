@@ -26,13 +26,14 @@ public class StaffServiceImpl implements StaffService {
     private final StaffActivityRepository staffActivityRepository;
     private final StaffMapper staffMapper;
     @Override
-    public void createNewStaff(StaffCreateDto staffCreateDto) {
+    public StaffResponseDto createNewStaff(StaffCreateDto staffCreateDto) {
         // todo: add new staff role to the user since now this user belong to staff
-        staffRepository.save(staffMapper.toStaff(staffCreateDto));
+        Staff staff = staffRepository.save(staffMapper.toStaff(staffCreateDto)); //mock -> staff
+        return staffMapper.toStaffResponseDto(staff);
     }
 
     @Override
-    public void updateStaff(StaffUpdateDto staffUpdateDto) {
+    public StaffResponseDto updateStaff(StaffUpdateDto staffUpdateDto) {
         Optional<Staff> staff = staffRepository.findById(staffUpdateDto.getId());
         if (staff.isEmpty()){
             throw new StaffNotFoundException("staff not found for id: " + staffUpdateDto.getId());
@@ -47,16 +48,17 @@ public class StaffServiceImpl implements StaffService {
                 .employeementType(staffUpdateDto.getEmployeementType())
                 .contractNumber(staffUpdateDto.getContractNumber())
                         .build();
-        staffRepository.save(updateStaff);
+        Staff updatedStaff = staffRepository.save(updateStaff);
+        return staffMapper.toStaffResponseDto(updatedStaff);
     }
 
     @Override
     public StaffResponseDto getStaff(long id) {
-        Optional<Staff> staff = staffRepository.findById(id);
+        Optional<Staff> staff = staffRepository.findById(id); // mock
         if (staff.isEmpty()){
             throw new StaffNotFoundException("Staff not found for id: "+ id);
         }
-        List<StaffActivity> activities = staffActivityRepository.findAllByStaffId(id);
+        List<StaffActivity> activities = staffActivityRepository.findAllByStaffId(id); // mock
         return StaffResponseDto.builder()
                 .salonId(staff.get().getSalonId())
                 .userId(staff.get().getUserId())
@@ -86,17 +88,17 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public boolean updateStaffAvailability(long id) {
-        Optional<Staff> staff = staffRepository.findById(id);
+        Optional<Staff> staff = staffRepository.findById(id); // mock
         if (staff.isEmpty()){
             throw new StaffNotFoundException("staff not found for id:"+id);
         }
         if (staff.get().isAvailable()){
             staff.get().setAvailable(false);
-            staffRepository.save(staff.get());
+            staffRepository.save(staff.get()); // mock
             return false;
         }
         staff.get().setAvailable(true);
-        staffRepository.save(staff.get());
+        staffRepository.save(staff.get()); // mock
         return true;
     }
 }
