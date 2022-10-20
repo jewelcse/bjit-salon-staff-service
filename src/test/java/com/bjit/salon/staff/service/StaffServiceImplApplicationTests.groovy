@@ -5,6 +5,7 @@ import com.bjit.salon.staff.service.dto.request.StaffUpdateDto
 import com.bjit.salon.staff.service.entity.EWorkingStatus
 import com.bjit.salon.staff.service.entity.Staff
 import com.bjit.salon.staff.service.entity.StaffActivity
+import com.bjit.salon.staff.service.exception.StaffNotFoundException
 import com.bjit.salon.staff.service.mapper.StaffMapper
 import com.bjit.salon.staff.service.repository.StaffActivityRepository
 import com.bjit.salon.staff.service.repository.StaffRepository
@@ -14,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
 
 @SpringBootTest
-class StaffServiceApplicationTests extends Specification {
+class StaffServiceImplApplicationTests extends Specification {
 
 
     private StaffRepository staffRepository
@@ -106,6 +107,29 @@ class StaffServiceApplicationTests extends Specification {
 
     }
 
+    def "should throw staff not found exception while updating the staff details"(){
+        given:
+        def staffRequest = StaffUpdateDto
+                .builder()
+                .id(2L)
+                .salonId(1L)
+                .userId(1L)
+                .contractNumber("836273")
+                .address("dhaka")
+                .employeementDate(null)
+                .employeementType(null)
+                .salary(4000.0)
+                .build()
+        staffRepository.findById(2L) >> Optional.ofNullable(null)
+
+        when:
+        staffService.updateStaff(staffRequest)
+
+        then:
+        def exception = thrown(StaffNotFoundException)
+        exception.message == "staff not found for id: 2"
+    }
+
     def "should return a staff object with activities by staff id"() {
         given:
         def staff = Staff
@@ -141,6 +165,20 @@ class StaffServiceApplicationTests extends Specification {
         then:
         staffResponseDto.getActivities().size() == 2
         staffResponseDto.getActivities().get(0).getWorkingStatus() == EWorkingStatus.ALLOCATED
+
+    }
+
+    def "should throw staff not found exception while getting the staff object by staff id"(){
+
+        given:
+        staffRepository.findById(2L) >> Optional.ofNullable(null)
+
+        when:
+        staffService.getStaff(2L)
+
+        then:
+        def exception = thrown(StaffNotFoundException)
+        exception.message == "Staff not found for id: 2"
 
     }
 
@@ -278,5 +316,17 @@ class StaffServiceApplicationTests extends Specification {
 
         then:
         response
+    }
+
+    def "should throw staff not found exception while updating the status availability by staff id"(){
+        given:
+        staffRepository.findById(2L) >> Optional.ofNullable(null)
+
+        when:
+        staffService.updateStaffAvailability(2L)
+
+        then:
+        def exception = thrown(StaffNotFoundException)
+        exception.message == "staff not found for id:2"
     }
 }
