@@ -1,4 +1,4 @@
-package com.bjit.salon.staff.service
+package com.bjit.salon.staff.service.serviceImpl
 
 import com.bjit.salon.staff.service.dto.request.StaffCreateDto
 import com.bjit.salon.staff.service.dto.request.StaffUpdateDto
@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
 
 @SpringBootTest
-class StaffServiceImplApplicationTests extends Specification {
+class StaffServiceImplApplicationUnitTest extends Specification {
 
 
     private StaffRepository staffRepository
