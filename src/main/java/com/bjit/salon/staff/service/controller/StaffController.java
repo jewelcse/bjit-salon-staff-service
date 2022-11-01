@@ -24,31 +24,32 @@ public class StaffController {
 
     private static final Logger log = LoggerFactory.getLogger(StaffController.class);
     private final StaffService staffService;
-    @PostMapping("/staffs") // only admin can create a new staff
+    @PostMapping("/staffs")
     public ResponseEntity<StaffResponseDto> create(@RequestBody StaffCreateDto staffCreateDto){
         log.info("Creating a new staff with user id: {}", staffCreateDto.getUserId());
         return new ResponseEntity<>(staffService.createNewStaff(staffCreateDto), HttpStatus.CREATED);
     }
 
-    @PutMapping("/staffs") // only staff and admin can update
+    @PutMapping("/staffs")
     public ResponseEntity<StaffResponseDto> update(@RequestBody StaffUpdateDto staffUpdateDto){
         log.info("Updating staff account details with user id: {}",staffUpdateDto.getUserId());
         return ResponseEntity.ok( staffService.updateStaff(staffUpdateDto));
     }
 
-    @GetMapping("/staffs/{id}") // only staff and admin can view
+    @GetMapping("/staffs/{id}")
     @CircuitBreaker(name = "staff-service", fallbackMethod = "getFallback")
     public ResponseEntity<StaffResponseDto> get(@PathVariable long id){
         log.info("Getting staff details with user id:{}",id);
         return ResponseEntity.ok(staffService.getStaff(id));
     }
 
-    public ResponseEntity<StaffResponseDto> getFallback(Exception exception){
-        return ResponseEntity.ok(new StaffResponseDto());
+    @GetMapping("/staffs/{id}/activities")
+    public ResponseEntity<StaffResponseDto> getStaffActivity(@PathVariable long id){
+        log.info("Getting staff activities with user id:{}",id);
+        return ResponseEntity.ok(staffService.getStaff(id));
     }
 
-    @GetMapping("/staffs/{id}/status") // only staff
-    @CircuitBreaker(name = "staff-service", fallbackMethod = "updateStatusAvailabilityFallback")
+    @GetMapping("/staffs/{id}/status")
     public ResponseEntity<String> updateStatusAvailability(@PathVariable("id") long id){
         boolean isAvailable = staffService.updateStaffAvailability(id);
         if (isAvailable){
@@ -59,42 +60,23 @@ public class StaffController {
         return ResponseEntity.ok("You are unavailable");
     }
 
-    public ResponseEntity<String> updateStatusAvailabilityFallback(Exception exception){
-        return ResponseEntity.ok("Service is down");
-    }
-
-    @GetMapping("/staffs") // only super admin can view
-    @CircuitBreaker(name = "staff-service", fallbackMethod = "getAllFallback")
+    @GetMapping("/staffs")
     public ResponseEntity<List<StaffResponseDto>> getAll(){
         List<StaffResponseDto> allStaff = staffService.getAllStaff();
         log.info("Getting all staff with size: {}",allStaff.size());
         return ResponseEntity.ok(allStaff);
     }
 
-    public ResponseEntity<List<StaffResponseDto>> getAllFallback(Exception exception){
-        return ResponseEntity.ok(new ArrayList<>());
-    }
-
     @GetMapping("/salons/{id}/staffs")
-    @CircuitBreaker(name = "staff-service", fallbackMethod = "getSalonStaffsFallback")
     public ResponseEntity<List<StaffResponseDto>> getSalonStaffs(@PathVariable long id){
         log.info("Getting all staff with salon id: {}",id);
         return ResponseEntity.ok(staffService.getListOfStaffBySalon(id));
     }
 
-    public ResponseEntity<List<StaffResponseDto>> getSalonStaffsFallback(Exception exception){
-        return ResponseEntity.ok(new ArrayList<>());
-    }
-
     @GetMapping("/salons/{id}/available/staffs")
-    @CircuitBreaker(name = "staff-service", fallbackMethod = "getAvailableStaffFallback")
     public ResponseEntity<List<StaffResponseDto>> getAvailableStaff(@PathVariable long id){
         log.info("Getting all available staff with salon id: {}",id);
         return ResponseEntity.ok(staffService.getListOfAvailableStaffBySalon(id));
-    }
-
-    public ResponseEntity<List<StaffResponseDto>> getAvailableStaffFallback(Exception exception){
-        return ResponseEntity.ok(new ArrayList<>());
     }
 
 }
