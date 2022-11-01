@@ -9,7 +9,6 @@ import com.bjit.salon.staff.service.exception.StaffNotFoundException
 import com.bjit.salon.staff.service.mapper.StaffMapper
 import com.bjit.salon.staff.service.repository.StaffActivityRepository
 import com.bjit.salon.staff.service.repository.StaffRepository
-import com.bjit.salon.staff.service.serviceImpl.StaffServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
@@ -41,8 +40,8 @@ class StaffServiceImplApplicationUnitTest extends Specification {
                 .userId(1L)
                 .contractNumber("836273")
                 .address("dhaka")
-                .employeementDate(null)
-                .employeementType(null)
+                .employmentDate(null)
+                .employmentType(null)
                 .salary(4000.0)
                 .build()
 
@@ -53,8 +52,8 @@ class StaffServiceImplApplicationUnitTest extends Specification {
                 .userId(1L)
                 .contractNumber("836273")
                 .address("dhaka")
-                .employeementDate(null)
-                .employeementType(null)
+                .employmentDate(null)
+                .employmentType(null)
                 .salary(4000.0)
                 .build()
 
@@ -78,8 +77,8 @@ class StaffServiceImplApplicationUnitTest extends Specification {
                 .userId(1L)
                 .contractNumber("836273")
                 .address("dhaka")
-                .employeementDate(null)
-                .employeementType(null)
+                .employmentDate(null)
+                .employmentType(null)
                 .salary(4000.0)
                 .build()
 
@@ -90,8 +89,8 @@ class StaffServiceImplApplicationUnitTest extends Specification {
                 .userId(1L)
                 .contractNumber("836273")
                 .address("dhaka")
-                .employeementDate(null)
-                .employeementType(null)
+                .employmentDate(null)
+                .employmentType(null)
                 .salary(4000.0)
                 .build()
 
@@ -116,8 +115,8 @@ class StaffServiceImplApplicationUnitTest extends Specification {
                 .userId(1L)
                 .contractNumber("836273")
                 .address("dhaka")
-                .employeementDate(null)
-                .employeementType(null)
+                .employmentDate(null)
+                .employmentType(null)
                 .salary(4000.0)
                 .build()
         staffRepository.findById(2L) >> Optional.ofNullable(null)
@@ -139,8 +138,8 @@ class StaffServiceImplApplicationUnitTest extends Specification {
                 .userId(1L)
                 .contractNumber("836273")
                 .address("dhaka")
-                .employeementDate(null)
-                .employeementType(null)
+                .employmentDate(null)
+                .employmentType(null)
                 .salary(4000.0)
                 .build()
 
@@ -192,8 +191,8 @@ class StaffServiceImplApplicationUnitTest extends Specification {
                 .userId(1L)
                 .contractNumber("836273")
                 .address("dhaka")
-                .employeementDate(null)
-                .employeementType(null)
+                .employmentDate(null)
+                .employmentType(null)
                 .salary(4000.0)
                 .build()
 
@@ -216,8 +215,8 @@ class StaffServiceImplApplicationUnitTest extends Specification {
                 .userId(1L)
                 .contractNumber("836273")
                 .address("dhaka")
-                .employeementDate(null)
-                .employeementType(null)
+                .employmentDate(null)
+                .employmentType(null)
                 .salary(4000.0)
                 .build()
 
@@ -241,8 +240,8 @@ class StaffServiceImplApplicationUnitTest extends Specification {
                 .userId(1L)
                 .contractNumber("836273")
                 .address("dhaka")
-                .employeementDate(null)
-                .employeementType(null)
+                .employmentDate(null)
+                .employmentType(null)
                 .salary(4000.0)
                 .build()
 
@@ -253,8 +252,8 @@ class StaffServiceImplApplicationUnitTest extends Specification {
                 .userId(1L)
                 .contractNumber("836273")
                 .address("dhaka")
-                .employeementDate(null)
-                .employeementType(null)
+                .employmentDate(null)
+                .employmentType(null)
                 .salary(4000.0)
                 .build()
 
@@ -278,8 +277,8 @@ class StaffServiceImplApplicationUnitTest extends Specification {
                 .userId(1L)
                 .contractNumber("836273")
                 .address("dhaka")
-                .employeementDate(null)
-                .employeementType(null)
+                .employmentDate(null)
+                .employmentType(null)
                 .salary(4000.0)
                 .build()
 
@@ -303,8 +302,8 @@ class StaffServiceImplApplicationUnitTest extends Specification {
                 .userId(1L)
                 .contractNumber("836273")
                 .address("dhaka")
-                .employeementDate(null)
-                .employeementType(null)
+                .employmentDate(null)
+                .employmentType(null)
                 .salary(4000.0)
                 .build()
 

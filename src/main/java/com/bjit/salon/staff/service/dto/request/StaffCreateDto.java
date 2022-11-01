@@ -15,6 +15,6 @@ public class StaffCreateDto {
     private long userId;
     private String contractNumber;
     private double salary;
-    private String employeementDate;
-    private String employeementType;
+    private String employmentDate;
+    private String employmentType;
 }

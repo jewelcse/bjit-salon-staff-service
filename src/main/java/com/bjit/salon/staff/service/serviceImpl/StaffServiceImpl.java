@@ -11,8 +11,6 @@ import com.bjit.salon.staff.service.repository.StaffActivityRepository;
 import com.bjit.salon.staff.service.repository.StaffRepository;
 import com.bjit.salon.staff.service.service.StaffService;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,8 +42,8 @@ public class StaffServiceImpl implements StaffService {
                 .salonId(staffUpdateDto.getSalonId())
                 .userId(staffUpdateDto.getUserId())
                 .salary(staffUpdateDto.getSalary())
-                .employeementDate(staffUpdateDto.getEmployeementDate())
-                .employeementType(staffUpdateDto.getEmployeementType())
+                .employmentDate(staffUpdateDto.getEmploymentDate())
+                .employmentType(staffUpdateDto.getEmploymentType())
                 .contractNumber(staffUpdateDto.getContractNumber())
                         .build();
         Staff updatedStaff = staffRepository.save(updateStaff);
@@ -65,8 +63,8 @@ public class StaffServiceImpl implements StaffService {
                 .address(staff.get().getAddress())
                 .contractNumber(staff.get().getContractNumber())
                 .isAvailable(staff.get().isAvailable())
-                .employeementDate(staff.get().getEmployeementDate())
-                .employeementType(staff.get().getEmployeementType())
+                .employmentDate(staff.get().getEmploymentDate())
+                .employmentType(staff.get().getEmploymentType())
                 .activities(activities)
                 .build();
     }
