@@ -19,7 +19,7 @@ public class StaffResponseDto {
     private boolean isAvailable;
     private String contractNumber;
     private double salary;
-    private String employeementDate;
-    private String employeementType;
+    private String employmentDate;
+    private String employmentType;
     private List<StaffActivity> activities;
 }

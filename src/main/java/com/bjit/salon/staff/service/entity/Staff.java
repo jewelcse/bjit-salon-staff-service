@@ -4,7 +4,6 @@ package com.bjit.salon.staff.service.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,7 +24,7 @@ public class Staff {
     private boolean isAvailable;
     private String contractNumber;
     private double salary;
-    private String employeementDate;
-    private String employeementType;
+    private String employmentDate;
+    private String employmentType;
 
 }
